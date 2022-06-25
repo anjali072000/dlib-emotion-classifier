@@ -26,7 +26,7 @@ predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
 
 model = load_model("model_landmark.h5")
 
-img = cv2.imread("r1.jpeg")
+img = cv2.imread("test/a2.jpeg")
 img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
