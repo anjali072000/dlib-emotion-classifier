@@ -11,8 +11,8 @@ model = load_model("model_landmark.h5")
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
-face_haar_cascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+# face_haar_cascade = cv2.CascadeClassifier(
+#     cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 
 labels_class = ['confused', 'engaged',
@@ -30,13 +30,11 @@ while True:
     img = cv2.cvtColor(test_img, cv2.COLOR_BGR2RGB)
     gray_img = cv2.cvtColor(test_img, cv2.COLOR_BGR2GRAY)
 
-    faces_detected = face_haar_cascade.detectMultiScale(gray_img, 1.32, 5)
+    # faces_detected = face_haar_cascade.detectMultiScale(gray_img, 1.32, 5)
 
-    for (x, y, w, h) in faces_detected:
-        cv2.rectangle(test_img, (x, y), (x+w, y+h), (0, 255, 0), thickness=3)
+    # for (x, y, w, h) in faces_detected:
+    #     cv2.rectangle(test_img, (x, y), (x+w, y+h), (0, 255, 0), thickness=3)
 
-    if cv2.waitKey(10) == ord('q'):  # wait until 'q' key is pressed
-        break
     rects = detector(gray_img, 1)
 
     for rect in rects:
@@ -58,17 +56,36 @@ while True:
 
         predictions = model.predict(X_train)
         print(predictions)
+
         # Display the landmarks
         for i, (x, y) in enumerate(shape):
             # Draw the circle to mark the keypoint
-            cv2.circle(test_img, (x, y), 1, (0, 0, 255), -1)
+            cv2.circle(test_img, (x, y), 1, (0, 0, 0), -1)
 
         cv2.putText(test_img, labels_class[np.argmax(predictions)] + " " + str(round(predictions[0][np.argmax(
             predictions)] * 100, 2)), (0, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         print("Predicted state: ", labels_class[np.argmax(predictions)])
 
+        x = rect.left()
+        y = rect.top()
+        w = rect.right() - x
+        h = rect.bottom() - y
+
+        if (labels_class[np.argmax(predictions)] == "confused" or labels_class[np.argmax(predictions)] == "engaged" or labels_class[np.argmax(predictions)] == "frustrated"):
+
+            # draw box over face
+            cv2.rectangle(test_img, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+        else:
+
+            # draw box over face
+            cv2.rectangle(test_img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
     resized_img = cv2.resize(test_img, (1000, 700))
     cv2.imshow('Facial emotion analysis ', resized_img)
+
+    if cv2.waitKey(10) == ord('q'):  # wait until 'q' key is pressed
+        break
 
 cap.release()
 cv2.destroyAllWindows
