@@ -18,6 +18,9 @@ face_haar_cascade = cv2.CascadeClassifier(
 labels_class = ['confused', 'engaged',
                 'frustrated', 'Lookingaway', 'bored', 'drowsy']
 
+# Emotion detection labels
+# labels_class = ['angry','control','happy','neutral','sad']
+
 cap = cv2.VideoCapture(1)
 
 while True:
@@ -54,7 +57,7 @@ while True:
         X_train = tf.expand_dims(X, axis=-1)
 
         predictions = model.predict(X_train)
-
+        print(predictions)
         # Display the landmarks
         for i, (x, y) in enumerate(shape):
             # Draw the circle to mark the keypoint
