@@ -15,7 +15,7 @@ predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
 #     cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
 
-labels_class = ['confused', 'engaged',
+labels_class = ['neutral', 'happy',
                 'frustrated', 'Lookingaway', 'bored', 'drowsy']
 
 # Emotion detection labels
