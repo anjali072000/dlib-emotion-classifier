@@ -1,4 +1,3 @@
-import imp
 import cv2
 import dlib
 import numpy as np
@@ -17,6 +16,7 @@ cap = cv2.VideoCapture(0)
 while True:
     # Capture the image from the webcam
     ret, image = cap.read()
+
     # Convert the image color to grayscale
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     # Detect the face
