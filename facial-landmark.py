@@ -1,6 +1,14 @@
+import imp
 import cv2
 import dlib
 import numpy as np
+import time
+
+# used to record the time when we processed last frame
+prev_frame_time = 0
+
+# used to record the time at which we processed current frame
+new_frame_time = 0
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
@@ -30,6 +38,28 @@ while True:
         for i, (x, y) in enumerate(shape):
             # Draw the circle to mark the keypoint
             cv2.circle(image, (x, y), 1, (0, 0, 255), -1)
+
+    # time when we finish processing for this frame
+    new_frame_time = time.time()
+
+    # Calculating the fps
+
+    # fps will be number of frame processed in given time frame
+    # since their will be most of time error of 0.001 second
+    # we will be subtracting it to get more accurate result
+    fps = 1/(new_frame_time-prev_frame_time)
+    prev_frame_time = new_frame_time
+
+    # converting the fps into integer
+    fps = int(fps)
+
+    # converting the fps to string so that we can display it on frame
+    # by using putText function
+    fps = str(fps)
+
+    # putting the FPS count on the frame
+    cv2.putText(image, "FPS: " + fps, (0, 25), cv2.FONT_HERSHEY_SIMPLEX,
+                1, (100, 255, 0), 1, cv2.LINE_AA)
 
     # Display the image
     cv2.imshow('Landmark Detection', image)
