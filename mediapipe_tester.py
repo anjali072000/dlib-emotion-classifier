@@ -16,7 +16,7 @@ model = load_model("model_landmark.h5")
 predictor = dlib.shape_predictor('./shape_predictor_68_face_landmarks.dat')
 
 
-labels_class = ['confused', 'engaged',
+labels_class = ['Neutral', 'engaged',
                 'frustrated', 'Lookingaway', 'bored', 'drowsy']
 
 
@@ -97,7 +97,7 @@ with mp_face_detection.FaceDetection(
                 print("Predicted state: ",
                       labels_class[np.argmax(predictions)])
 
-                if (labels_class[np.argmax(predictions)] == "confused" or labels_class[np.argmax(predictions)] == "engaged" or labels_class[np.argmax(predictions)] == "frustrated"):
+                if (labels_class[np.argmax(predictions)] == "Neutral" or labels_class[np.argmax(predictions)] == "engaged" or labels_class[np.argmax(predictions)] == "frustrated"):
 
                     # draw box over face
                     cv2.rectangle(image, (r_x, r_y),
