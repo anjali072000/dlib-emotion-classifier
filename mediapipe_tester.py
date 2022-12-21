@@ -28,7 +28,7 @@ new_frame_time = 0
 
 
 # For webcam input:
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 with mp_face_detection.FaceDetection(
         model_selection=0, min_detection_confidence=0.5) as face_detection:
     while cap.isOpened():
