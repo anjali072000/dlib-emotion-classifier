@@ -72,7 +72,7 @@ while True:
         if (labels_class[np.argmax(predictions)] == "Neutral" or labels_class[np.argmax(predictions)] == "engaged" or labels_class[np.argmax(predictions)] == "frustrated"):
 
             # draw box over face
-            cv2.rectangle(image, (x, y), (w, h), (0, 255, 0), 2)
+            cv2.rectangle(image, (int(x), int(y)), (int(w), int(h)), (0, 255, 0), 2)
 
         else:
 

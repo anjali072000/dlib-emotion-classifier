@@ -25,7 +25,7 @@ while True:
     faces_detected = face_haar_cascade.detectMultiScale(gray_img, 1.32, 5)
 
     for (x, y, w, h) in faces_detected:
-        cv2.rectangle(test_img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+        cv2.rectangle(test_img, (int(x), int(y)), (int(x+w), int(y+h)), (0, 0, 255), 2)
 
     # time when we finish processing for this frame
     new_frame_time = time.time()

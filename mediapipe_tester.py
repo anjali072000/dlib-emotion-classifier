@@ -100,8 +100,8 @@ with mp_face_detection.FaceDetection(
                 if (labels_class[np.argmax(predictions)] == "Neutral" or labels_class[np.argmax(predictions)] == "engaged" or labels_class[np.argmax(predictions)] == "frustrated"):
 
                     # draw box over face
-                    cv2.rectangle(image, (r_x, r_y),
-                                  (r_w, r_h), (0, 255, 0), 2)
+                    cv2.rectangle(image, (int(r_x), int(r_y)),
+                                  (int(r_w), int(r_h)), (0, 255, 0), 2)
 
                 else:
 
